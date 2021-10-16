@@ -2,14 +2,13 @@
 
 namespace Chef.DAL.Entities
 {
-    public class RecipeIngredient : Entity
+    public class ComponentIngredient : Entity
     {
-        public int RecipeId { get; set; }
+        public int RecipeComponentId { get; set; }
         public int IngredientId { get; set; }
         public double Quantity { get; set; }
         public string Description { get; set; }
-
-        public virtual Recipe Recipe { get; set; }
-        public virtual Ingredient Ingredient { get; set; }
+        public Ingredient Ingredient { get; set; }
+        public RecipeComponent RecipeComponent { get; set; }
     }
 }

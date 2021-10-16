@@ -2,7 +2,7 @@
 
 namespace Chef.DAL.Entities
 {
-    public class Category : Entity
+    public class RecipeCategory : Entity
     {
         public string Name { get; set; }
     }
