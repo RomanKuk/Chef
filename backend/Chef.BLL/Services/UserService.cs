@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Chef.BLL.Exceptions;
 using Chef.BLL.Interfaces;
 using Chef.BLL.Services.Abstract;
 using Chef.Common.DTO.User;
@@ -15,28 +15,66 @@ namespace Chef.BLL.Services
 {
     public class UserService : BaseCrudService<User, UserDto, NewUserDto>, IUserService
     {
-        public UserService(ChefContext context, IMapper mapper) : base(context, mapper)
+        private readonly IFileProvider _fileProvider;
+
+        public UserService(ChefContext context, IMapper mapper, IFileProvider fileProvider) : base(context, mapper)
         {
+            _fileProvider = fileProvider;
         }
 
-        public Task<UserDto> Login(string uId)
+        public async Task<UserDto> Login(string uId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return (await GetAllAsync()).First(u => u.UId == uId);
+            }
+            catch (Exception)
+            {
+                throw new NotFoundException("User");
+            }
         }
 
-        public Task<UserDto> Register(NewUserDto creatingUser)
+        public async Task<UserDto> Register(NewUserDto creatingUser)
         {
-            throw new NotImplementedException();
+            creatingUser.CreatedAt = DateTime.UtcNow;
+            return await AddAsync(creatingUser);
         }
 
-        public Task<UserDto> UpdateUserAvatar(IFormFile file, int userId)
+        public async Task<UserDto> UpdateUserAvatar(IFormFile file, int userId)
         {
-            throw new NotImplementedException();
+            string dbPath = await _fileProvider.UploadUserPhoto(file);
+            var user = await GetAsync(userId);
+            user.AvatarUrl = dbPath;
+            return await UpdateAsync(user);
         }
 
-        public Task<bool> ValidateUsername(ValidateUserDto user)
+        public async Task<bool> ValidateUsername(ValidateUserDto user)
         {
-            throw new NotImplementedException();
+            return user.Id != 0 ? 
+                (await GetAllAsync())
+                    .Any(x => string.Equals(x.Username, user.Username, StringComparison.InvariantCultureIgnoreCase) && x.Id != user.Id) :
+                (await GetAllAsync())
+                    .Any(x => string.Equals(x.Username, user.Username, StringComparison.InvariantCultureIgnoreCase));
+        }
+
+        public async Task<ICollection<UserDto>> GetAll()
+        {
+            return (await GetAllAsync()).ToList();
+        }
+
+        public async Task<UserDto> GetUserById(int id)
+        {
+            return await GetAsync(id);
+        }
+
+        public async Task<UserDto> Update(UserDto user)
+        {
+            return await UpdateAsync(user);
+        }
+
+        public async Task Delete(int id)
+        {
+            await RemoveAsync(id);
         }
     }
 }

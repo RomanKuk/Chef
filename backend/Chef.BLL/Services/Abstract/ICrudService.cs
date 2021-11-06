@@ -12,7 +12,7 @@ namespace Chef.BLL.Services.Abstract
         where TKey : IEquatable<TKey>
     {
         Task<TEntityDto> AddAsync(TEntityCreateDto dto);
-        Task UpdateAsync(TEntityDto dto);
+        Task<TEntityDto> UpdateAsync(TEntityDto dto);
         Task RemoveAsync(TKey id);
         Task<TEntityDto> GetAsync(TKey id, bool isNoTracking = false);
         Task<IEnumerable<TEntityDto>> GetAllAsync();

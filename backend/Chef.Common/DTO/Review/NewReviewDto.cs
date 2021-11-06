@@ -5,7 +5,7 @@ using Chef.Common.DTO.User;
 
 namespace Chef.Common.DTO.Review
 {
-    public class NewReviewDto
+    public class NewReviewDto : AuditDto
     {
         public string Description { get; set; }
         public bool IsAlreadyCooked { get; set; }

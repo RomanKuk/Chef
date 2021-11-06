@@ -14,5 +14,9 @@ namespace Chef.BLL.Interfaces
         Task<UserDto> Register(NewUserDto creatingUser);
         Task<UserDto> UpdateUserAvatar(IFormFile file, int userId);
         Task<bool> ValidateUsername(ValidateUserDto user);
+        Task<ICollection<UserDto>> GetAll();
+        Task<UserDto> GetUserById(int id);
+        Task<UserDto> Update(UserDto user);
+        Task Delete(int id);
     }
 }

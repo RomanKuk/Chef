@@ -43,7 +43,7 @@ namespace Chef.BLL.Services.Abstract
 
         /// <summary />
         /// <exception cref="ArgumentException">Throws an exception when doesn't exist entity with id</exception>
-        public virtual async Task UpdateAsync(TEntityDto dto)
+        public virtual async Task<TEntityDto> UpdateAsync(TEntityDto dto)
         {
             var entity = Mapper.Map<TEntity>(dto);
             if (!await ExistAsync(entity.Id))
@@ -53,6 +53,9 @@ namespace Chef.BLL.Services.Abstract
 
             Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
+
+            var updatedEntity = await Context.Set<TEntity>().FindAsync(entity.Id);
+            return Mapper.Map<TEntityDto>(updatedEntity);
         }
 
         /// <summary />

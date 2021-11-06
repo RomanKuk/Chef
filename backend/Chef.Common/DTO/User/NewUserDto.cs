@@ -1,6 +1,8 @@
-﻿namespace Chef.Common.DTO.User
+﻿using Chef.Common.DTO.Base;
+
+namespace Chef.Common.DTO.User
 {
-    public class NewUserDto
+    public class NewUserDto : AuditDto
     {
         public string Username { get; set; }
         public string FirstName { get; set; }
