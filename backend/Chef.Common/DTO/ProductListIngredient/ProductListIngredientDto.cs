@@ -1,6 +1,7 @@
 ﻿using Chef.Common.DTO.Base;
 using Chef.Common.DTO.Ingredient;
 using Chef.Common.DTO.ProductList;
+using Chef.Common.DTO.VolumeMetric;
 
 namespace Chef.Common.DTO.ProductListIngredient
 {
@@ -12,5 +13,7 @@ namespace Chef.Common.DTO.ProductListIngredient
         public string Description { get; set; }
         public IngredientDto Ingredient { get; set; }
         public ProductListDto ProductList { get; set; }
+        public int VolumeMetricId { get; set; }
+        public VolumeMetricDto VolumeMetric { get; set; }
     }
 }

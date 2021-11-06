@@ -10,5 +10,7 @@ namespace Chef.DAL.Entities
         public string Description { get; set; }
         public Ingredient Ingredient { get; set; }
         public RecipeComponent RecipeComponent { get; set; }
+        public int? VolumeMetricId { get; set; }
+        public VolumeMetric VolumeMetric { get; set; }
     }
 }
