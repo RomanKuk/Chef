@@ -12,6 +12,9 @@ namespace Chef.DAL.Context.EntityConfigurations
             builder.HasIndex(u => u.Username)
                 .IsUnique();
 
+            builder.HasIndex(u => u.UId)
+                .IsUnique();
+
             builder.Property(u => u.Username)
                 .HasMaxLength(50)
                 .IsRequired();
