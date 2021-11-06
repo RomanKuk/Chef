@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Chef.API.Extensions;
+using Chef.API.Filters;
+using Chef.DAL.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Chef.API
 {
@@ -23,7 +23,19 @@ namespace Chef.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddDbContext<ChefContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            services.AddControllers();
+
+            services.AddCors();
+
+
+            services.RegisterAutoMapper();
+
+            services.RegisterCustomServices();
+
+            services.AddMvcCore(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)));
+
+            services.ConfigureCustomValidationErrors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,24 +45,19 @@ namespace Chef.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+
+            app.UseCors(builder => builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:4200"));
 
             app.UseRouting();
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
