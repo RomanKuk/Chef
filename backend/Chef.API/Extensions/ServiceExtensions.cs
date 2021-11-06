@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Reflection;
+using Chef.BLL.MappingProfiles;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,42 +10,16 @@ namespace Chef.API.Extensions
     {
         public static void RegisterCustomServices(this IServiceCollection services)
         {
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
-            //services.AddScoped<IProjectService, ProjectService>();
-            //services.AddScoped<ITaskService, TaskService>();
-            //services.AddScoped<ITeamService, TeamService>();
-            //services.AddScoped<IUserService, UserService>();
+            services
+                .AddControllers()
+                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.RegisterAutoMapper();
         }
 
         public static void RegisterAutoMapper(this IServiceCollection services)
         {
-            services.AddAutoMapper(cfg =>
-                {
-                    //cfg.AddProfile<ProjectProfile>();
-                    //cfg.AddProfile<UserProfile>();
-                    //cfg.AddProfile<TeamProfile>();
-                    //cfg.AddProfile<TaskProfile>();
-                },
-                Assembly.GetExecutingAssembly());
-        }
-
-        public static void ConfigureCustomValidationErrors(this IServiceCollection services)
-        {
-            // override modelstate
-            services.Configure<ApiBehaviorOptions>(options =>
-            {
-                options.InvalidModelStateResponseFactory = (context) =>
-                {
-                    var errors = context.ModelState.Values.SelectMany(x => x.Errors.Select(p => p.ErrorMessage)).ToList();
-                    var result = new
-                    {
-                        Message = "Validation errors",
-                        Errors = errors
-                    };
-
-                    return new BadRequestObjectResult(result);
-                };
-            });
+            services.AddAutoMapper(Assembly.GetAssembly(typeof(UserProfile)));
         }
     }
 }
