@@ -1,0 +1,13 @@
+<app-landing-header></app-landing-header>
+<p-galleria [value]="images" [responsiveOptions]="responsiveOptions" 
+    [numVisible]="5" [circular]="true" [autoPlay]="true" [transitionInterval]="5000"
+    [showThumbnails]="false" [showIndicators]="true" [changeItemOnIndicatorHover]="true" 
+    [showIndicatorsOnItem]="true"> 
+    <ng-template pTemplate="item" let-item>
+        <img [src]="item.previewImageSrc" [alt]="item.description" style="width: 100%; display: block;" />
+        <div class="image-content">
+            <h1 class="image-title">{{item.title}}</h1>
+            <p class="image-description">{{item.description}}</p>
+        </div>
+    </ng-template>
+</p-galleria>

@@ -1,0 +1,24 @@
+{
+    "data":[
+        {
+            "previewImageSrc": "assets/landing/pancakes.jpeg",
+            "description": "Eating homemade foods is usually much cheaper than eating at a restaurant or buying processed foods from the market",
+            "title": "Saves money"
+        },
+        {
+            "previewImageSrc": "assets/landing/salad.jpg",
+            "description": "Prepare own foods from healthy ingredients at home",
+            "title": "Healthy ingredients"
+        },
+        {
+            "previewImageSrc": "assets/landing/soup.jpg",
+            "description": "Eating homemade foods is usually much cheaper than eating at a restaurant or buying processed foods from the market",
+            "title": "Control portion sizes"
+        },
+        {
+            "previewImageSrc": "assets/landing/chicken.jpg",
+            "description": "One of the most important advantages of cooking and eating at home is that your family together and they will learn how to share foods",
+            "title": "Keeps us together"
+        }
+    ]
+}

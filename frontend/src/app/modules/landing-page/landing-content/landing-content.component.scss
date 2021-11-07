@@ -1,0 +1,40 @@
+::ng-deep .p-galleria.p-galleria-indicator-onitem .p-galleria-indicators {
+    background: none;
+}
+
+::ng-deep .p-galleria-item {
+    align-items: initial !important;
+    justify-content: initial !important;
+}
+
+::ng-deep .p-galleria.p-galleria-indicator-onitem .p-galleria-indicators .p-galleria-indicator.p-highlight button {
+    background-color: #000;
+}
+
+app-landing-header {
+    position: fixed;
+    z-index: 100;
+    width: 100%;
+    background: linear-gradient(#ffffffa6, #ffffff00);
+}
+
+.image-content {
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    background: linear-gradient(#00000000, #00000086, #ffffff00);
+    padding: 0 3rem;
+    margin-top: 10%;
+    width: 100%;
+    color: #fff;
+}
+
+.image-title {
+    font-size: 60px;
+}
+
+.image-description {
+    font-size: 30px;
+    width: 50%;
+}

@@ -1,0 +1,47 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 12.5rem;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.logo > img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+
+    display: block;
+    width: 100%;
+    max-height: 30px;
+    transform: scale(1.7);
+}
+
+.links {
+    display: flex;
+    justify-content: center;
+}
+
+.buttons {
+    display: flex;
+    grid-gap: var(--content-padding);
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+.buttons > button {
+    background: #000;
+    border-color: #fff ;
+    font-size: 20px;
+}
+
+.p-button:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 0.2rem rgb(0 0 0 / 50%);
+}
+        
