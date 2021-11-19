@@ -1,0 +1,26 @@
+<p-card [header]="recipe.name" subheader="" [style]="{width: '360px'}" styleClass="recipe-card"
+    routerLink="/portal/recipes/{{recipe.id}}">
+    <ng-template pTemplate="header">
+        <img alt="Card" [src]="recipe.recipeUrl">
+    </ng-template>
+    <div class="recipe-info">
+        <div class="cooking-time" pTooltip="Cooking time" tooltipPosition="bottom">
+            <i class="pi pi-clock"></i>
+            <p>{{recipe.summaryTime}}</p>
+        </div>
+        <div class="ingredients" pTooltip="Ingredients" tooltipPosition="bottom">
+            <i class="pi pi-book"></i>
+            <p>{{recipe.ingredientsCount ?? 5}}</p>
+        </div>
+        <div class="rating">
+            <div class="likes" pTooltip="Likes" tooltipPosition="bottom">
+                <i class="pi pi-thumbs-up"></i>
+                <p>{{recipe.likeCount}}</p>
+            </div>
+            <div class="dislikes" pTooltip="Dislikes" tooltipPosition="bottom">
+                <i class="pi pi-thumbs-down"></i>
+                <p>{{recipe.dislikeCount}}</p>
+            </div>
+        </div>
+    </div>
+</p-card>

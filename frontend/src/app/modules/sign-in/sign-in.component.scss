@@ -1,0 +1,130 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+} 
+
+.content {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 5px;
+    padding-top: 20px;
+    padding-left: 16vw;
+    padding-right: 16vw;
+    padding-bottom: 60px;
+    z-index: 1000;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.content > h6 {
+    font-weight: bold;
+    font-size: 70px;
+    margin: 25px 0;  
+}
+
+.ember-view {
+    position: absolute;
+    z-index: -1;
+    top: -30px;
+    left: -30px;
+}
+
+.inner {
+    padding: 10px 10px 20px 10px;
+    max-width: 1024px;
+    margin: auto;
+}
+
+.intro{
+    margin-bottom: 35px;
+}
+
+.intro p,
+.content > p {
+    margin-bottom: 0;
+    font-size: 20px;
+}
+
+
+.sign-up-card .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.content .btn {
+    display: flex;
+    flex-direction: row;
+    padding: 3px 10px;
+    border: 1px solid black;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    width: 16vw;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.content .btn:hover {
+    background-color: #eff0f4;
+}
+
+
+.btn .button-text p {
+    margin-left: 20px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.btn .icon {
+    padding-right: 10px;
+    border-right: 1px solid black;
+    font-size: 25px;
+}
+
+.content > p > a {
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px solid black;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+
+.content > p > a:hover {
+    opacity: 1;
+}
+
+
+// @media screen and (max-width: 900px)
+// .btn
+//     width: 20vw
+// .content
+//     padding-left: 10vw
+//     padding-right: 10vw
+
+// @media screen and (max-width: 835px)
+// .content
+//     .btn
+//         width: 10rem
+
+// @media screen and (max-width: 670px)
+// .content
+//     padding-left: 5vw
+//     padding-right: 5vw
+
+// @media screen and (max-width: 520px)
+// #blue-blob_svg__Layer_1
+//     width: 80vw
+//     height: 50vw

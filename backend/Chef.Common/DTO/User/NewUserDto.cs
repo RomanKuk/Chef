@@ -10,7 +10,5 @@ namespace Chef.Common.DTO.User
         public string Email { get; set; }
         public string UId { get; set; }
         public string AvatarUrl { get; set; }
-        public int ProductListId { get; set; }
-        public string AccessToken { get; set; }
     }
 }

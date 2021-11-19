@@ -1,0 +1,45 @@
+::ng-deep .recipe-card {
+    width: 300px !important;
+    cursor: pointer;
+    margin: 1rem;
+}
+
+::ng-deep .recipe-card img {
+    height: 300px;
+}
+
+::ng-deep .p-card-content {
+    padding: 0 !important;
+}
+
+.recipe-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cooking-time,
+.rating,
+.ingredients,
+.likes,
+.dislikes {
+    display: flex;
+    align-items: center;
+
+    p {
+        margin-left: .5rem;
+    }
+
+    i {
+        font-size: 1rem;
+    }
+}
+
+.rating {
+    justify-content: space-between;
+
+    .likes {
+        margin-right: .5rem;
+    }
+}

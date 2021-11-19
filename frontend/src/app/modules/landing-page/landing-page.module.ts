@@ -9,12 +9,14 @@ import { ButtonModule } from 'primeng/button';
 import { GalleriaModule } from 'primeng/galleria';
 import { PhotoService } from 'src/app/core/services/photo.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SignInComponent } from '../sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
     LandingPageComponent,
     LandingContentComponent,
-    LandingHeaderComponent
+    LandingHeaderComponent,
+    SignInComponent
   ],
   imports: [
     CommonModule,

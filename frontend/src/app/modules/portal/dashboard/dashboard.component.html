@@ -1,0 +1,15 @@
+<p-menubar [model]="items">
+    <ng-template pTemplate="start">
+        <img src="assets/logo.png" height="40" class="logo">
+    </ng-template>
+    <ng-template pTemplate="end">
+        <div class="menu-end">
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input type="text" pInputText placeholder="Search">
+            </span>   
+            <p-menubar [model]="profileItem" styleClass="profile-image"></p-menubar>  
+        </div>
+    </ng-template>
+</p-menubar>
+<router-outlet></router-outlet>

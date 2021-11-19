@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Chef.BLL.Interfaces
 {
-    public  interface IUserService
+    public interface IUserService
     {
         Task<UserDto> Login(string uId);
         Task<UserDto> Register(NewUserDto creatingUser);

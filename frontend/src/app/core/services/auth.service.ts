@@ -1,138 +1,152 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { from, of } from 'rxjs';
+import { filter, tap, switchMap, map, mergeMap } from 'rxjs/operators';
+import firebase from 'firebase/app';
+import { User } from 'src/app/shared/models/user/user';
+import { NewUser } from 'src/app/shared/models/user/new-user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // private currentUser: User;
-  // private firebaseUser: firebase.User;
+  private static user: User | null;
+  private readonly tokenHelper: JwtHelperService;
 
-  // private readonly tokenHelper: JwtHelperService;
+  private token!: string | null;
+  private rememberUser!: boolean;
 
-  // constructor(
-  //   private angularAuth: AngularFireAuth,
-  //   private userService: UserService,
-  //   private router: Router
-  // ) {
-  //   this.tokenHelper = new JwtHelperService();
-  // }
+  constructor(
+    private angularFireAuth: AngularFireAuth,
+    private userService: UserService,
+    private router: Router
+  ) {
+    this.tokenHelper = new JwtHelperService();
+  }
 
-  // configureAuthState = (user: firebase.User) => {
-  //   if (!user) {
-  //     return this.clearAuth();
-  //   }
+  login(route?: string[]) {
+    this.rememberUser = localStorage.getItem('rememberUser') === 'true';
+    return from(this.angularFireAuth.currentUser)
+        .pipe(
+            filter(firebaseUser => Boolean(firebaseUser)),
+            switchMap(firebaseUser => from(firebaseUser!.getIdToken())),
+            tap(token => {
+                this.setJwToken(token);
+                this.router.navigate(route!);
+            })
+        );
+  }
 
-  //   return user.getIdTokenResult()
-  //     .then((result) => this.populateAuth(result.token, user));
-  // }
+  logout() {
+      this.removeJwToken();
+      this.removeUser();
+      //Watchdog.setUserInfo({ isAnonymous: true });
+      this.angularFireAuth.signOut()
+          .catch(error => {
+              console.warn(error);
+          });
+  }
 
-  // getAngularAuth() {
-  //   return this.angularAuth;
-  // }
+  signInWithGoogle(route: string[]) {
+    this.logout();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/userinfo.email');
 
-  // loadCurrentUser(force?: boolean) {
-  //   if (!this.currentUser || force) {
-  //     return this.userService.login(this.firebaseUser.uid)
-  //       .pipe(tap(user => this.currentUser = user));
-  //   }
-  //   return of(this.currentUser);
-  // }
+    return from(this.angularFireAuth
+        .signInWithPopup(provider))
+        .pipe(
+            switchMap(userCredential =>
+                this.userService.getUser(userCredential.user!.uid)
+                    .pipe(
+                        switchMap(user => (user ? of(user)
+                            : this.userService.createUser(this.pullNewUserFromGoogle(userCredential))))
+                    )),
+            tap(user => {
+                localStorage.setItem('isSignByEmailAndPassword', 'false');
+                return this.setUser(user);
+            }),
+            switchMap(() => this.login(route))
+        );
+  }
 
-  // registerUser(newUser: NewUser) {
-  //   this.userService.register(newUser)
-  //     .pipe(
-  //       switchMap(user => this.angularAuth.authState
-  //         .pipe(switchMap(fireUser => from(this.configureAuthState(fireUser))
-  //           .pipe(map(() => ({ user, fireUser })))
-  //         )))
-  //     ).subscribe(({ user, fireUser }) => {
-  //       if (fireUser?.uid === user.userSocialNetworks[0].uId) {
-  //         this.currentUser = user;
-  //         this.router.navigate(['/portal']);
-  //       }
-  //     });
-  // }
+  pullNewUserFromGoogle(credential: firebase.auth.UserCredential) {
+    const user = {
+        uid: credential.user!.uid,
+        email: credential.user!.email,
+        firstName: (credential.additionalUserInfo!.profile as { given_name: string }).given_name,
+        lastName: (credential.additionalUserInfo!.profile as { family_name: string }).family_name,
+        avatarUrl: credential.user!.photoURL
+    } as NewUser;
 
-  // logout(redirectUrl?: string) {
-  //   return this.clearAuth()
-  //     .then(() => this.router.navigate([redirectUrl ? redirectUrl : '/']));
-  // }
+    return user;
+  }
 
-  // cancelRegistration() {
-  //   return this.clearAuth();
-  // }
+  refreshJwToken(forceRefresh = false) {
+    return this.angularFireAuth.authState
+        .pipe(
+            filter(firebaseUser => Boolean(firebaseUser)),
+            mergeMap(firebaseUser => from(firebaseUser!.getIdToken(forceRefresh))),
+            tap(token => {
+                localStorage.setItem('jwt', token);
+                this.token = token;
+            })
+        );
+  }
 
-  // getFirebaseToken() {
-  //   const currentToken = localStorage.getItem('jwt');
-  //   return !currentToken || this.tokenHelper.isTokenExpired(currentToken)
-  //     ? this.refreshFirebaseToken()
-  //     : of(currentToken);
-  // }
+  removeJwToken() {
+    this.token = null;
+    localStorage.removeItem('jwt');
+  }
 
-  // refreshFirebaseToken() {
-  //   return this.angularAuth.authState.pipe(
-  //     filter(user => Boolean(user)),
-  //     mergeMap(user => from(user.getIdToken(true))),
-  //     tap(token => localStorage.setItem('jwt', token))
-  //   );
-  // }
+  getJwToken() {
+    if (!this.token) {
+        this.token = localStorage.getItem('jwt');
+    }
+    if (this.token && !this.tokenHelper.isTokenExpired(this.token)) {
+        return of(this.token);
+    }
+    return this.refreshJwToken();
+  }
 
-  // getCurrentUser() {
-  //   return this.currentUser;
-  // }
+  setJwToken(token: string) {
+      this.token = token;
+      if (this.rememberUser) {
+          localStorage.setItem('jwt', this.token);
+      }
+  }
 
-  // getFireUser() {
-  //   if (!this.firebaseUser) {
-  //     this.firebaseUser = JSON.parse(localStorage.getItem('user'));
-  //   }
+  setUser(user: User) {
+    AuthService.user = user;
+    localStorage.setItem('user', JSON.stringify(AuthService.user));
+  }
 
-  //   return this.firebaseUser;
-  // }
+  removeUser() {
+      AuthService.user = null;
+      localStorage.removeItem('user');
+  }
 
-  // setFirebaseUser(user: firebase.User) {
-  //   this.firebaseUser = user;
-  //   localStorage.setItem('user', JSON.stringify(user));
-  // }
+  getUserId(): number {
+    return this.getUser()!.id;
+  }
 
-  // setUser(user: User) {
-  //   this.currentUser = user;
-  // }
+  getUser() {
+    if (!AuthService.user) {
+        AuthService.user = JSON.parse(localStorage.getItem('user')!);
+    }
+    return AuthService.user;
+  }
 
-  // isAuthorized() {
-  //   return Boolean(this.getFireUser());
-  // }
-
-  // populateAuth(jwt: string, user: firebase.User) {
-  //   this.firebaseUser = user;
-  //   localStorage.setItem('user', JSON.stringify(user));
-  //   localStorage.setItem('jwt', jwt);
-  // }
-
-  // clearAuth() {
-  //   localStorage.removeItem('user');
-  //   localStorage.removeItem('jwt');
-  //   this.firebaseUser = undefined;
-  //   this.currentUser = undefined;
-  //   return this.angularAuth.signOut();
-  // }
-
-  // isProviderAddedInFirebase(provider: Providers, firebaseUser?: firebase.User) {
-  //   const check = (item: UserInfo) => item.providerId === this.checkProviderUrl(provider);
-  //   return firebaseUser ? firebaseUser.providerData.some(check) : this.firebaseUser?.providerData.some(check);
-  // }
-
-  // checkProviderUrl(provider: Providers) {
-  //   let providerUrlId: string;
-  //   switch (provider) {
-  //     case Providers.Google: {
-  //       providerUrlId = 'google.com';
-  //       break;
-  //     }
-  //     case Providers.Github: {
-  //       providerUrlId = 'github.com';
-  //       break;
-  //     }
-  //   }
-  //   return providerUrlId;
-  // }
+  isAuthenticated(): boolean {
+    const user = this.getUser();
+    const authResult = Boolean(user) && Boolean(user!.createdAt);
+    if (authResult) {
+        //Watchdog.setUserInfo({ identifier: user.email, fullName: `${user.firstName} ${user.lastName}` });
+    } else {
+        //Watchdog.setUserInfo({ isAnonymous: true });
+    }
+    return authResult;
+  }
 }

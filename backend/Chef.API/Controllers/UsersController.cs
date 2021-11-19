@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Chef.API.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]")]
     [ApiController]
     public class UsersController : ControllerBase

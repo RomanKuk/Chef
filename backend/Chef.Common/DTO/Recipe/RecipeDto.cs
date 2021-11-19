@@ -14,8 +14,11 @@ namespace Chef.Common.DTO.Recipe
         public string Description { get; set; }
         public TimeSpan? CookingTime { get; set; }
         public TimeSpan? PreparationTime { get; set; }
+        public TimeSpan? SummaryTime { get; set; }
         public int DefaultServingsCount { get; set; }
+        public int IngredientsCount { get; set; }
         public int CategoryId { get; set; }
+        public string RecipeUrl { get; set; }
         public RecipeCategoryDto Category { get; set; }
         public int LikeCount { get; set; }
         public int DislikeCount { get; set; }

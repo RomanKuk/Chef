@@ -1,0 +1,26 @@
+.logo {
+    margin-right: 5rem;
+}
+
+::ng-deep .p-inputtext {
+    font-family: 'Kodchasan', sans-serif;
+}
+
+::ng-deep .profile-image ul li:nth-child(1) span img {
+    vertical-align: middle;
+    max-height: 40px;
+    max-width: 40px;
+    height: 100%;
+    border-radius: 50%;
+}
+
+::ng-deep .profile-image li:nth-last-child(1) a {
+    padding: 0 1rem;
+}
+
+.menu-end {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
