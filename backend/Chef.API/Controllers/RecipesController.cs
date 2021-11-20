@@ -27,7 +27,7 @@ namespace Chef.API.Controllers
         [HttpGet("{id:int}")]
         public async Task<RecipeDto> Get(int id)
         {
-            return await _recipeService.GetUserById(id);
+            return await _recipeService.GetRecipeById(id);
         }
     }
 }

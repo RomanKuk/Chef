@@ -1,0 +1,13 @@
+<div class="recipe-ingredients">
+    <h3>Ingredients</h3>
+    <p>Servings: {{recipe.defaultServingsCount}}</p>
+    <div class="components" *ngFor="let component of recipe.components">
+        <p *ngIf="recipe.components.length > 1">{{component.name}}</p>
+        <div class="ingredients">
+            <div class="item" *ngFor="let ingredient of component.ingredients">
+                <p><span class="item-quantity">{{ingredient.quantity}} {{ingredient.volumeMetric?.name}} </span>
+                    <span>{{ingredient.ingredient.name.toLowerCase()}}</span></p>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,6 +8,7 @@ import { CoreModule } from './core/core.module';
 import { PortalModule } from './modules/portal/portal.module';
 import { LandingPageModule } from './modules/landing-page/landing-page.module';
 import { SharedModule } from './shared/shared.module';
+import { RecipeModule } from './modules/recipe/recipe.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { SharedModule } from './shared/shared.module';
     CoreModule,
     SharedModule,
     LandingPageModule,
-    PortalModule
+    PortalModule,
+    RecipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

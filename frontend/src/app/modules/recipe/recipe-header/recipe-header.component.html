@@ -1,0 +1,32 @@
+<div class="recipe-header">
+    <img alt="Card" class="recipe-img" [src]="recipe.recipeUrl">
+    <div class="recipe-info">
+        <h1>{{recipe.name}}</h1>
+        <div class="rating-reviews">
+            <div class="rating">
+                <div class="likes" pTooltip="Likes" tooltipPosition="bottom">
+                    <i class="pi pi-thumbs-up"></i>
+                    <p>{{recipe.likeCount}}</p>
+                </div>
+                <div class="dislikes" pTooltip="Dislikes" tooltipPosition="bottom">
+                    <i class="pi pi-thumbs-down"></i>
+                    <p>{{recipe.dislikeCount}}</p>
+                </div>
+            </div>
+            <div class="reviews-count">
+                <h4>Reviews: {{recipe.reviews.length}}</h4>
+            </div>
+        </div>
+        <div class="time">
+            <div class="preparation-time" pTooltip="Preparation time" tooltipPosition="bottom">
+                <i class="pi pi-clock"></i>
+                <p>Prep: {{recipe.preparationTime}}</p>
+            </div>
+            <div class="cooking-time" pTooltip="Cooking time" tooltipPosition="bottom">
+                <i class="pi pi-clock"></i>
+                <p>Cook: {{recipe.cookingTime}}</p>
+            </div>
+        </div>
+    </div>
+
+</div>

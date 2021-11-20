@@ -17,10 +17,10 @@ export class DashboardComponent implements OnInit {
           label:'Home',
           routerLink: ['/portal/home']
         },
-        {
-          label:'Saved',
-          routerLink: ['/portal/saved']
-        },
+        // {
+        //   label:'Saved',
+        //   routerLink: ['/portal/saved']
+        // },
         {
           label:'Product list',
           routerLink: ['/portal/product-list']
@@ -30,7 +30,6 @@ export class DashboardComponent implements OnInit {
       {
       label: "<img src='assets/Avatar-default.png' alt='Avatar' class='avatar' />",
       escape: false,
-      // style: "padding: 0 1rem",
       items: [
         {
           label: "Settings"

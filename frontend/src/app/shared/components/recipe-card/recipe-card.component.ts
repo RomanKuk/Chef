@@ -14,7 +14,7 @@ export class RecipeCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.recipe);
+    //console.log(this.recipe);
     //this.time = this.timeConvertion(); 
   }
 

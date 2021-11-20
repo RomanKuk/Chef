@@ -20,7 +20,7 @@ const routes: Routes = [
   {
     path: "portal",
     loadChildren: () => import('./modules/portal/portal.module')
-    .then(m => m.PortalModule),
+      .then(m => m.PortalModule),
   },
   // { path: 'signin', component: SignInComponent, canActivate: [HomeGuard] },
   // { path: 'signup', component: SignUpComponent, canActivate: [HomeGuard] },

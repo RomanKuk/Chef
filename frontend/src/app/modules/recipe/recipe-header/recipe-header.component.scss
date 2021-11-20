@@ -1,0 +1,48 @@
+.recipe-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.recipe-info {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.rating-reviews,
+.time {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.rating,
+.likes,
+.dislikes,
+.preparation-time,
+.cooking-time {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    
+    p {
+        margin-left: .5rem;
+    }
+
+    i {
+        font-size: 1rem;
+    }
+}
+
+.likes,
+.preparation-time {
+    margin-right: 1rem;
+}
+
+.recipe-img {
+    border-radius: 10px;
+}

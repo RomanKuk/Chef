@@ -10,6 +10,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { PortalRoutingModule } from './portal-routing.module';
 import { HomeComponent } from './home/home.component';
 import { CardModule } from 'primeng/card';
+import { RecipeModule } from '../recipe/recipe.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CardModule } from 'primeng/card';
     TabViewModule,
     ButtonModule,
     CardModule,
-    SharedModule
+    SharedModule,
+    RecipeModule
   ]
 })
 export class PortalModule { }

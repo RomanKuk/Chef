@@ -1,5 +1,4 @@
-<p-card [header]="recipe.name" subheader="" [style]="{width: '360px'}" styleClass="recipe-card"
-    routerLink="/portal/recipes/{{recipe.id}}">
+<p-card [header]="recipe.name" styleClass="recipe-card" routerLink="/portal/recipes/{{recipe.id}}">
     <ng-template pTemplate="header">
         <img alt="Card" [src]="recipe.recipeUrl">
     </ng-template>

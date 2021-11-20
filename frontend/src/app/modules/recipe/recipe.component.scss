@@ -1,0 +1,22 @@
+.recipe {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+hr {
+    width: 70%;
+    color: gray;
+}
+
+::ng-deep p-card {
+    width: 60%;
+
+    img {
+        height: 220px;
+    }
+}
+
+app-recipe-header {
+    border-bottom: 1px solid rgb(47, 75, 158)
+}

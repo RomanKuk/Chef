@@ -24,6 +24,11 @@ const routes: Routes = [
         component: ProductListComponent,
       },
       {
+        path: 'recipes',
+        loadChildren: () => import('../recipe/recipe.module')
+          .then(m => m.RecipeModule),
+      },
+      {
         path: '**',
         component: NotFoundComponent,
         pathMatch: 'full'

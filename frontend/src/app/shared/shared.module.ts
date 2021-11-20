@@ -22,7 +22,8 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
   exports: [
     DefaultLogoPipe,
     RecipesDisplayComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    PrimeComponentsModule
   ]
 })
 export class SharedModule { }

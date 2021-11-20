@@ -12,6 +12,6 @@ namespace Chef.BLL.Interfaces
     public interface IRecipeService
     {
         Task<ICollection<RecipeDto>> GetAll();
-        Task<RecipeDto> GetUserById(int id);
+        Task<RecipeDto> GetRecipeById(int id);
     }
 }

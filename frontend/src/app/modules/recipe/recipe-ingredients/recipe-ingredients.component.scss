@@ -1,0 +1,15 @@
+.ingredients {
+    column-count: 2;
+    width: 60%;
+}
+
+.item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .item-quantity {
+        font-weight: bold;
+        font-size: 14px;
+    }
+}

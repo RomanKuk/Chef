@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Chef.BLL.Exceptions;
 using Chef.BLL.Interfaces;
 using Chef.BLL.Services.Abstract;
 using Chef.Common.DTO.Recipe;
-using Chef.Common.DTO.User;
 using Chef.DAL.Context;
 using Chef.DAL.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Chef.BLL.Services
@@ -24,24 +20,38 @@ namespace Chef.BLL.Services
 
         public async Task<ICollection<RecipeDto>> GetAll()
         {
-            var recipes = (await GetAllAsync()).ToList();
+            var recipesEntity = await Context.Recipes
+                .AsNoTracking()
+                .Include(r => r.Components)
+                .ThenInclude(c => c.Ingredients)
+                .ToListAsync();
 
-            recipes.ForEach(async r =>
+            var recipes = Mapper.Map<List<RecipeDto>>(recipesEntity);
+
+            recipes.ForEach(r =>
             {
-                var recipeComponents = await Context.RecipeComponents
-                    .AsNoTracking()
-                    .Include(c => c.Ingredients)
-                    .ToListAsync();
                 r.SummaryTime = r.CookingTime + r.PreparationTime;
-                r.IngredientsCount = recipeComponents.Sum(c => c.Ingredients.Count);
+                r.IngredientsCount = r.Components.Sum(c => c.Ingredients.Count);
             });
 
             return recipes;
         }
 
-        public async Task<RecipeDto> GetUserById(int id)
+        public async Task<RecipeDto> GetRecipeById(int id)
         {
-            return await GetAsync(id);
+            var recipe = await Context.Recipes
+                .AsNoTracking()
+                .Include(r => r.Components)
+                    .ThenInclude(c => c.Ingredients)
+                    .ThenInclude(c => c.Ingredient)
+                .Include(c => c.Components)
+                    .ThenInclude(c => c.Ingredients)
+                    .ThenInclude(i => i.VolumeMetric)
+                .Include(r => r.Instructions)
+                .Include(r => r.Reviews)
+                .FirstOrDefaultAsync(r => r.Id == id);
+
+            return Mapper.Map<RecipeDto>(recipe);
         }
     }
 }
