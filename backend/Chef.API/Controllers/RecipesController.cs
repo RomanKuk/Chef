@@ -29,5 +29,11 @@ namespace Chef.API.Controllers
         {
             return await _recipeService.GetRecipeById(id);
         }
+
+        [HttpPost("get-filtered-recipes")]
+        public async Task<ICollection<RecipeDto>> GetFilteredRecipes([FromBody] FilterRecipeDto filter)
+        {
+            return await _recipeService.GetFilteredRecipes(filter);
+        }
     }
 }

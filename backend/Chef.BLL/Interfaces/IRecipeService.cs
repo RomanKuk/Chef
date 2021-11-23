@@ -13,5 +13,6 @@ namespace Chef.BLL.Interfaces
     {
         Task<ICollection<RecipeDto>> GetAll();
         Task<RecipeDto> GetRecipeById(int id);
+        Task<ICollection<RecipeDto>> GetFilteredRecipes(FilterRecipeDto filter);
     }
 }

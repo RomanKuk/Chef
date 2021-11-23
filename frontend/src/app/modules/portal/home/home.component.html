@@ -1,1 +1,55 @@
+<div class="search-wrapper">
+    <p-dropdown [options]="sortingOptions" [(ngModel)]="selectedOption"></p-dropdown>
+    <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <input class="main-search" type="text" pInputText placeholder="Search">
+    </span> 
+    <p-button label="Filter" styleClass="p-button-text p-button-plain" (click)="showDialog()" icon="pi pi-filter"></p-button>
+</div>
+
+<p-dialog header="Filters" [(visible)]="displayFilters">
+    <h3><i class="pi pi-clock"></i> Cooking time</h3>
+    <div class="time-options">
+        <div *ngFor="let timeOption of cookingTimeOptions" class="p-field-checkbox">
+            <p-checkbox name="cooking-time" value="timeOption" [value]="timeOption"  
+                [(ngModel)]="selectedCookingTime" [inputId]="timeOption.value"></p-checkbox>
+            <label [for]="timeOption.value">{{timeOption.label}}</label>
+        </div>
+    </div>
+
+    <h3><i class="pi pi-book"></i> Ingredients count</h3>
+    <div class="time-options">
+        <div *ngFor="let countOption of ingredientsCountOptions" class="p-field-checkbox">
+            <p-checkbox name="ingredient-count" value="countOption" [value]="countOption"  
+                [(ngModel)]="selectedIngredientsCount" [inputId]="countOption.value"></p-checkbox>
+            <label [for]="countOption.value">{{countOption.label}}</label>
+        </div>
+    </div>
+
+    <h3><i class="pi pi-list"></i> Products</h3>
+    <p-multiSelect [options]="products" [(ngModel)]="selectedProducts" defaultLabel="Select a product" optionLabel="name" class="multiselect-custom">
+        <ng-template let-value pTemplate="selectedItems">
+            <div class="product-item product-item-value" *ngFor="let option of selectedProducts">
+                <div>{{option.name}}</div>
+            </div>
+            <div *ngIf="!selectedProducts || selectedProducts.length === 0" class="product-placeholder">
+                Select Products
+            </div>
+        </ng-template>
+        <ng-template let-product pTemplate="item">
+            <div class="product-item">
+                <div>{{product.name}}</div>
+            </div>
+        </ng-template>
+    </p-multiSelect>
+
+    <button pButton pRipple type="button" label="Match my products" class="p-button-secondary"></button>
+
+    <div class="actions">
+        <button pButton pRipple type="button" label="Clear" class="p-button-warning"></button>
+        <button pButton pRipple type="button" label="Submit" (click)="onSubmit()"></button>
+    </div>
+
+</p-dialog>
+
 <app-recipes-display [recipes]="recipes"></app-recipes-display>

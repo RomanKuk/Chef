@@ -19,6 +19,8 @@ namespace Chef.API.Extensions
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRecipeService, RecipeService>();
+            services.AddScoped<IProductListService, ProductListService>();
+            services.AddScoped<IIngredientService, IngredientService>();
 
             services.AddTransient<IFileProvider, FileProvider>();
 

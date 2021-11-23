@@ -16,8 +16,6 @@ namespace Chef.DAL.Entities
         public string Email { get; set; }
         public string UId { get; set; }
         public string AvatarUrl { get; set; }
-        public int ProductListId { get; set; }
-        public ProductList ProductList { get; set; }
         public ICollection<Recipe> SavedRecipes { get; set; }
     }
 }

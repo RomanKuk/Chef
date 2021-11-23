@@ -7,5 +7,6 @@ namespace Chef.Common.DTO.ProductList
     public class ProductListDto : BaseDto
     {
         public ICollection<ProductListIngredientDto> Ingredients { get; set; }
+        public int UserId { get; set; }
     }
 }

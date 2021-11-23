@@ -11,5 +11,7 @@ namespace Chef.DAL.Entities
         }
 
         public ICollection<ProductListIngredient> Ingredients { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

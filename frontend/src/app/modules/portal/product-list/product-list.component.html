@@ -1,1 +1,19 @@
-<p>product-list works!</p>
+<div class="product-list">
+    <p-card>
+        <div class="card-header">
+            <h1>Product list</h1>
+            <span class="p-input-icon-left">
+                <i class="pi pi-plus"></i>
+                <input type="text" pInputText placeholder="Add item">
+            </span> 
+        </div>
+        <div class="ingredients">
+            <div class="group" *ngFor="let group of ingredientGroups | keyvalue">
+                <h3>{{group.key}}</h3>
+                <p *ngFor="let ingredient of group.value">
+                    {{ingredient.ingredient.name}} {{ingredient.quantity}} {{ingredient.volumeMetric?.name}}
+                </p>
+            </div>
+        </div>
+    </p-card>
+</div>

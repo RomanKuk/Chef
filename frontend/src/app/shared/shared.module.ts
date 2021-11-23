@@ -6,6 +6,7 @@ import { PrimeComponentsModule } from './prime-components/prime-components.modul
 import { DefaultLogoPipe } from './pipes/default-logo.pipe';
 import { RecipesDisplayComponent } from './components/recipes-display/recipes-display.component';
 import { RecipeCardComponent } from './components/recipe-card/recipe-card.component';
+import { BaseComponent } from './components/base/base.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import { RecipeCardComponent } from './components/recipe-card/recipe-card.compon
     NotFoundComponent,
     DefaultLogoPipe,
     RecipesDisplayComponent,
-    RecipeCardComponent
+    RecipeCardComponent,
+    BaseComponent
   ],
   imports: [
     CommonModule,

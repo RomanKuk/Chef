@@ -24,3 +24,7 @@
     flex-direction: row;
     align-items: center;
 }
+
+::ng-deep .p-menuitem-link:focus {
+    box-shadow: none !important;
+}
